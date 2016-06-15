@@ -108,7 +108,8 @@ module.exports = function(grunt) {
             prop === "extdirs" || prop === "endorseddirs" || prop === "processor" || prop === "processorpath" || prop === "d" || 
             prop === "s" || prop === "encoding" || prop === "Xmaxerrors" || prop === "Xmaxwarns" || prop === "Xstdout"){
             //Space delimiter
-            setOptions(data.javaOptions[prop]," ",":");    
+            var useWinClasspathDelimiter = process.platform === "win32" && (prop === "cp" || prop === "classpath");
+            setOptions(data.javaOptions[prop]," ", useWinClasspathDelimiter ? ";" : ":");   
           }
           else if (// java options
             prop === "agentlib" || prop === "agentpath" || prop === "ea" || prop === "enableassertions" || prop === "da" ||
